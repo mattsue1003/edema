@@ -39,7 +39,7 @@ h1,h2,.huge-num,.sld-text b,.hotline .num,.seal{
 .deck{position:relative;width:100vw;height:100vh;height:100dvh;}
 .slide{
   position:absolute;inset:0;
-  display:none;flex-direction:column;justify-content:flex-start;
+  display:none;
   padding:clamp(20px,4.5vw,56px);
   padding-bottom:calc(100px + env(safe-area-inset-bottom,0px));
   overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
@@ -49,7 +49,7 @@ h1,h2,.huge-num,.sld-text b,.hotline .num,.seal{
     var(--paper);
   animation:fade .45s ease;
 }
-.slide.active{display:flex;}
+.slide.active{display:block;}
 .wrap{width:100%;max-width:1080px;margin-left:auto;margin-right:auto;}
 @keyframes fade{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 
@@ -112,6 +112,13 @@ h2{font-size:clamp(30px,6.5vw,56px);line-height:1.18;margin-bottom:18px;letter-s
 .icard{display:flex;gap:14px;align-items:flex-start;}
 .icard .em{font-size:clamp(30px,6vw,42px);line-height:1;flex-shrink:0;}
 .icard .tx{font-size:clamp(16px,3vw,21px);font-weight:700;line-height:1.45;}
+/* 影響：整列卡片 */
+.impact-list{display:grid;grid-template-columns:1fr;gap:clamp(12px,2.2vw,16px);}
+@media(min-width:760px){.impact-list{grid-template-columns:1fr 1fr;}}
+.impact-item{display:flex;align-items:center;gap:16px;background:var(--soft);border:3px solid var(--ink);border-radius:16px;padding:clamp(15px,3vw,22px);box-shadow:var(--shadow);}
+.impact-item .em{font-size:clamp(34px,7vw,46px);line-height:1;flex-shrink:0;}
+.impact-item .tx{font-size:clamp(17px,3.3vw,22px);font-weight:700;line-height:1.45;}
+.impact-item b{color:var(--alert);}
 
 /* ============ 互動：選擇題 ============ */
 .opt{
@@ -425,6 +432,8 @@ h2{font-size:clamp(30px,6.5vw,56px);line-height:1.18;margin-bottom:18px;letter-s
 .cover .tap-hint{margin-top:36px;font-size:clamp(15px,2.8vw,20px);opacity:.75;font-weight:700;animation:pulse 1.8s infinite;}
 @keyframes pulse{0%,100%{opacity:.45;}50%{opacity:.95;}}
 
+.cover{padding-top:clamp(40px,8vh,96px);}
+
 /* ============ 目錄 ============ */
 .menu{
   position:fixed;inset:0;z-index:80;background:rgba(20,30,38,.97);
@@ -570,11 +579,11 @@ button:focus-visible,.opt:focus-visible,.clue:focus-visible,a:focus-visible,.mat
     <div class="wrap">
       <span class="eyebrow" style="color:var(--alert);">⚠️ 別輕忽</span>
       <h2>腳腫不管它，會怎樣？</h2>
-      <div class="grid g2">
-        <div class="card icard"><div class="em">🚶</div><div class="tx">走路<b style="color:var(--alert);">重心不穩</b>、容易跌倒</div></div>
-        <div class="card icard"><div class="em">🦠</div><div class="tx">皮膚緊繃易<b style="color:var(--alert);">破皮、感染</b>（蜂窩性組織炎）</div></div>
-        <div class="card icard"><div class="em">🩹</div><div class="tx">血液循環差，<b style="color:var(--alert);">傷口不容易好</b></div></div>
-        <div class="card icard"><div class="em">😣</div><div class="tx">沉重痠脹、睡不好、<b style="color:var(--alert);">鞋子穿不下</b></div></div>
+      <div class="impact-list">
+        <div class="impact-item"><span class="em">🚶</span><span class="tx">走路<b>重心不穩</b>、容易跌倒</span></div>
+        <div class="impact-item"><span class="em">🦠</span><span class="tx">皮膚緊繃，易<b>破皮、感染</b>（蜂窩性組織炎）</span></div>
+        <div class="impact-item"><span class="em">🩹</span><span class="tx">血液循環差，<b>傷口不容易好</b></span></div>
+        <div class="impact-item"><span class="em">😣</span><span class="tx">沉重痠脹、睡不好、<b>鞋子穿不下</b></span></div>
       </div>
       <div class="card" style="margin-top:16px;background:rgba(210,63,46,.07);border-left:8px solid var(--alert);">
         <p style="font-size:clamp(16px,3.1vw,22px);font-weight:700;line-height:1.55;">
