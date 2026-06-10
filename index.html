@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>下肢水腫照護 ‧ 護理師教你消腫</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chocolate+Classical+Sans&family=Noto+Sans+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============ 設計系統：台式招牌 × 社區公佈欄（循環/消腫主題） ============ */
+:root{
+  --ink:#1d2b35;          /* 招牌墨 */
+  --paper:#f6eedb;        /* 米色公告紙 */
+  --soft:#fffdf4;         /* 卡片紙 */
+  --alert:#d23f2e;        /* 朱紅：警訊 */
+  --gold:#f2b033;         /* 招牌黃 */
+  --safe:#2c7a5b;         /* 廟簷綠：健康 */
+  --sky:#2f7fb0;          /* 循環藍：水/血流 */
+  --skin:#eab78f;         /* 膚色：示意肢體 */
+  --shadow:5px 6px 0 rgba(29,43,53,.9);
+  --shadow-lg:7px 8px 0 rgba(29,43,53,.9);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:'Noto Sans TC',"PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  background:var(--ink);
+  color:var(--ink);
+  overflow:hidden;position:fixed;width:100%;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,.huge-num,.sld-text b,.hotline .num,.seal{
+  font-family:'Chocolate Classical Sans','Noto Sans TC',serif;
+  font-weight:400;
+}
+
+/* ============ 投影片容器 ============ */
+.deck{position:relative;width:100vw;height:100vh;height:100dvh;}
+.slide{
+  position:absolute;inset:0;
+  display:none;flex-direction:column;justify-content:flex-start;
+  padding:clamp(20px,4.5vw,56px);
+  padding-bottom:calc(100px + env(safe-area-inset-bottom,0px));
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:
+    radial-gradient(circle at 85% 8%, rgba(47,127,176,.10), transparent 42%),
+    radial-gradient(circle at 8% 95%, rgba(242,176,51,.08), transparent 38%),
+    var(--paper);
+  animation:fade .45s ease;
+}
+.slide.active{display:flex;}
+.slide::before,.slide::after{content:"";flex:1 0 auto;min-height:0;}
+.wrap{width:100%;max-width:1080px;margin-left:auto;margin-right:auto;}
+@keyframes fade{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+
+/* ============ 共用元件 ============ */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:clamp(15px,2.4vw,19px);font-weight:900;
+  letter-spacing:.12em;color:var(--sky);
+  border:3px solid currentColor;border-radius:10px;
+  padding:6px 16px;margin-bottom:20px;
+  transform:rotate(-1.2deg);background:rgba(255,253,244,.6);
+}
+h1{font-size:clamp(40px,9vw,84px);line-height:1.12;letter-spacing:.02em;}
+h2{font-size:clamp(30px,6.5vw,56px);line-height:1.18;margin-bottom:18px;letter-spacing:.02em;}
+.lead{font-size:clamp(18px,3.4vw,26px);line-height:1.6;font-weight:500;color:#44535f;}
+.big{font-size:clamp(20px,4vw,30px);}
+.huge-num{font-size:clamp(64px,17vw,150px);line-height:1;letter-spacing:.01em;}
+
+.pill-tag{
+  display:inline-block;font-weight:900;font-size:clamp(14px,2.4vw,18px);
+  letter-spacing:.1em;padding:7px 16px;border-radius:10px;
+  background:var(--ink);color:var(--paper);margin-bottom:16px;
+  transform:rotate(-1.2deg);box-shadow:3px 3px 0 rgba(29,43,53,.25);
+}
+
+/* ============ 進度 / 導航 ============ */
+.topbar{position:fixed;top:0;left:0;right:0;height:7px;z-index:60;background:rgba(29,43,53,.15);}
+.topbar-fill{height:100%;background:repeating-linear-gradient(135deg,var(--gold) 0 14px,var(--sky) 14px 28px);transition:width .4s;}
+.nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px clamp(14px,3vw,28px);
+  padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  background:var(--ink);
+  border-top:3px solid rgba(242,176,51,.5);
+  color:var(--paper);
+}
+.nav button{
+  font-family:inherit;font-weight:900;font-size:clamp(15px,2.6vw,18px);
+  border:3px solid #0d161d;border-radius:12px;padding:10px 20px;cursor:pointer;
+  background:var(--gold);color:var(--ink);
+  box-shadow:3px 4px 0 #0d161d;
+  transition:transform .12s,box-shadow .12s,opacity .2s;
+}
+.nav button:active{transform:translate(2px,3px);box-shadow:1px 1px 0 #0d161d;}
+.nav button:disabled{opacity:.3;cursor:default;}
+.nav .counter{font-size:clamp(14px,2.4vw,17px);font-weight:700;opacity:.85;letter-spacing:.08em;font-variant-numeric:tabular-nums;}
+.menu-btn{background:transparent !important;border:none !important;box-shadow:none !important;color:var(--gold) !important;padding:8px 12px !important;font-size:24px !important;}
+.menu-btn:active{transform:scale(.9) !important;}
+
+/* ============ 卡片：公告貼紙 ============ */
+.grid{display:grid;gap:clamp(14px,2.2vw,20px);}
+.g2{grid-template-columns:1fr 1fr;}
+.g3{grid-template-columns:repeat(3,1fr);}
+.card{
+  background:var(--soft);border:3px solid var(--ink);
+  border-radius:16px;padding:clamp(18px,3vw,28px);
+  box-shadow:var(--shadow);
+}
+.icard{display:flex;gap:14px;align-items:flex-start;}
+.icard .em{font-size:clamp(30px,6vw,42px);line-height:1;flex-shrink:0;}
+.icard .tx{font-size:clamp(16px,3vw,21px);font-weight:700;line-height:1.45;}
+
+/* ============ 互動：選擇題 ============ */
+.opt{
+  display:flex;align-items:center;gap:14px;width:100%;
+  font-family:inherit;text-align:left;cursor:pointer;
+  background:var(--soft);border:3px solid var(--ink);
+  border-radius:16px;padding:clamp(16px,3vw,22px) clamp(18px,3vw,24px);
+  font-size:clamp(18px,3.4vw,24px);font-weight:700;color:var(--ink);
+  margin-bottom:16px;line-height:1.4;
+  box-shadow:var(--shadow);
+  transition:transform .12s,box-shadow .12s,opacity .2s,background .2s;
+}
+.opt:active{transform:translate(3px,4px);box-shadow:1px 2px 0 rgba(29,43,53,.9);}
+.opt .ico{
+  flex-shrink:0;width:clamp(40px,7vw,48px);height:clamp(40px,7vw,48px);
+  border-radius:10px;background:var(--ink);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(19px,3.4vw,23px);font-weight:900;
+}
+.opt.correct{background:#e3f0e8;border-color:var(--safe);box-shadow:5px 6px 0 rgba(44,122,91,.85);}
+.opt.correct .ico{background:var(--safe);color:#fff;}
+.opt.wrong{background:#f8e3df;border-color:var(--alert);box-shadow:5px 6px 0 rgba(210,63,46,.8);}
+.opt.wrong .ico{background:var(--alert);color:#fff;}
+.opt.dim{opacity:.4;box-shadow:2px 3px 0 rgba(29,43,53,.5);}
+.feedback{
+  display:none;margin-top:4px;border-radius:14px;padding:clamp(16px,3vw,22px);
+  font-size:clamp(17px,3.2vw,22px);line-height:1.6;font-weight:600;
+  border:3px dashed;animation:fade .35s ease;
+}
+.feedback.show{display:block;}
+.feedback.ok{background:#e3f0e8;color:#1d5b41;border-color:var(--safe);}
+.feedback.no{background:#f8e3df;color:#a52f20;border-color:var(--alert);}
+
+/* ============ 是非：迷思大挑戰 ============ */
+.tf-card{
+  background:var(--soft);border:3px solid var(--ink);border-radius:16px;
+  padding:clamp(16px,3vw,22px);box-shadow:var(--shadow);margin-bottom:18px;
+}
+.tf-q{font-size:clamp(17px,3.3vw,23px);font-weight:700;line-height:1.5;margin-bottom:14px;}
+.tf-q .badge{display:inline-block;background:var(--ink);color:var(--gold);border-radius:8px;font-size:clamp(13px,2.4vw,16px);font-weight:900;padding:3px 10px;margin-right:8px;}
+.tf-btns{display:flex;gap:12px;}
+.tf-btns button{
+  flex:1;font-family:inherit;font-weight:900;font-size:clamp(16px,3vw,21px);
+  border:3px solid var(--ink);border-radius:14px;padding:14px 8px;cursor:pointer;
+  background:var(--soft);color:var(--ink);box-shadow:3px 4px 0 rgba(29,43,53,.7);
+  transition:transform .12s,box-shadow .12s;
+}
+.tf-btns button:active{transform:translate(2px,3px);box-shadow:1px 1px 0 rgba(29,43,53,.7);}
+.tf-btns button:disabled{cursor:default;}
+.tf-btns button.tf-true{color:var(--safe);}
+.tf-btns button.tf-false{color:var(--alert);}
+.tf-btns button.picked-right{background:#e3f0e8;border-color:var(--safe);}
+.tf-btns button.picked-wrong{background:#f8e3df;border-color:var(--alert);}
+.tf-btns button.faded{opacity:.35;}
+.tf-ans{
+  display:none;margin-top:14px;border-top:3px dashed var(--sky);padding-top:14px;
+  font-size:clamp(16px,3vw,21px);line-height:1.6;font-weight:600;animation:fade .35s ease;
+}
+.tf-ans.show{display:block;}
+.tf-ans .verdict{font-weight:900;font-size:clamp(18px,3.4vw,24px);display:block;margin-bottom:6px;}
+.tf-ans b{color:var(--alert);}
+
+/* ============ 配對遊戲 ============ */
+.match-game{}
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(9px,2vw,16px);}
+.match-col{display:flex;flex-direction:column;gap:clamp(9px,1.8vw,13px);}
+.match-head{
+  font-weight:900;font-size:clamp(14px,2.6vw,18px);text-align:center;
+  letter-spacing:.06em;padding:6px;border-radius:10px;
+}
+.match-head.l{background:rgba(47,127,176,.14);color:var(--sky);}
+.match-head.r{background:rgba(242,176,51,.18);color:#9a6b12;}
+.match-item{
+  font-family:inherit;text-align:center;cursor:pointer;
+  background:var(--soft);border:3px solid var(--ink);border-radius:14px;
+  padding:clamp(12px,2.4vw,16px) clamp(8px,2vw,12px);
+  font-size:clamp(14px,2.8vw,19px);font-weight:700;color:var(--ink);line-height:1.35;
+  box-shadow:4px 5px 0 rgba(29,43,53,.85);
+  transition:transform .12s,box-shadow .12s,background .2s,border-color .2s,opacity .2s;
+}
+.match-item:active{transform:translate(2px,3px);box-shadow:1px 2px 0 rgba(29,43,53,.85);}
+.match-item.sel{background:var(--gold);border-color:var(--ink);transform:translateY(-2px);box-shadow:5px 7px 0 rgba(29,43,53,.85);}
+.match-item.matched{background:#e3f0e8;border-color:var(--safe);color:#1d5b41;box-shadow:4px 5px 0 rgba(44,122,91,.7);cursor:default;}
+.match-item.matched::after{content:" ✓";color:var(--safe);font-weight:900;}
+.match-item.shake{animation:shk .4s;}
+@keyframes shk{0%,100%{transform:translateX(0);}25%{transform:translateX(-7px);}75%{transform:translateX(7px);}}
+
+/* ============ 排序遊戲 ============ */
+.sort-game{}
+.sort-list{display:flex;flex-direction:column;gap:12px;}
+.sort-item{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;font-family:inherit;cursor:pointer;
+  background:var(--soft);border:3px solid var(--ink);border-radius:14px;
+  padding:clamp(13px,2.8vw,18px);box-shadow:var(--shadow);
+  font-size:clamp(16px,3.1vw,22px);font-weight:700;color:var(--ink);line-height:1.4;
+  transition:transform .12s,box-shadow .12s,background .2s,border-color .2s;
+}
+.sort-item:active{transform:translate(2px,3px);box-shadow:1px 2px 0 rgba(29,43,53,.9);}
+.sort-item .badge{
+  flex-shrink:0;width:clamp(38px,6.5vw,48px);height:clamp(38px,6.5vw,48px);
+  background:var(--ink);color:var(--gold);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(18px,3.4vw,24px);font-weight:900;
+}
+.sort-item.picked .badge{background:var(--sky);color:#fff;}
+.sort-item.ok{background:#e3f0e8;border-color:var(--safe);}
+.sort-item.ok .badge{background:var(--safe);color:#fff;}
+.sort-item.bad{background:#f8e3df;border-color:var(--alert);}
+.sort-item.bad .badge{background:var(--alert);color:#fff;}
+.sort-reset{
+  margin-top:14px;font-family:inherit;font-weight:900;font-size:clamp(15px,2.8vw,19px);
+  background:var(--ink);color:var(--paper);border:3px solid #0d161d;border-radius:12px;
+  padding:11px 22px;cursor:pointer;box-shadow:3px 4px 0 #0d161d;
+}
+.sort-reset:active{transform:translate(2px,3px);box-shadow:1px 1px 0 #0d161d;}
+
+/* ============ 大家來找碴 ============ */
+.spot-msg{
+  background:#e9eef3;border:3px solid var(--ink);border-radius:18px;
+  padding:clamp(18px,3.5vw,28px);box-shadow:var(--shadow);
+}
+.bubble{
+  background:#fff;border:2.5px solid #c5d0da;border-radius:14px 14px 14px 4px;
+  padding:clamp(14px,2.6vw,20px);margin:12px 0;
+  font-size:clamp(17px,3.2vw,22px);line-height:1.7;font-weight:500;
+}
+.clue{
+  cursor:pointer;border-bottom:3px dashed var(--alert);padding:0 2px;
+  font-weight:800;transition:background .2s;border-radius:4px;
+}
+.clue:active{background:rgba(210,63,46,.18);}
+.clue.found{background:var(--gold);border-bottom:3px solid var(--ink);color:var(--ink);}
+.spot-counter{font-size:clamp(17px,3.2vw,22px);font-weight:900;color:var(--alert);}
+
+/* ============ 互動圖表 ============ */
+.bars{display:flex;flex-direction:column;gap:14px;margin-top:8px;}
+.bar-row{display:flex;align-items:center;gap:12px;}
+.bar-label{flex:0 0 clamp(72px,18vw,120px);font-weight:900;font-size:clamp(15px,2.8vw,20px);}
+.bar-track{flex:1;background:var(--paper);border:2.5px solid var(--ink);border-radius:999px;height:clamp(40px,6.8vw,50px);overflow:hidden;}
+.bar-fill{
+  height:100%;border-radius:999px 0 0 999px;width:0;min-width:74px;
+  transition:width 1.1s cubic-bezier(.2,.8,.2,1);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:900;font-size:clamp(14px,2.6vw,19px);white-space:nowrap;
+  border-right:2.5px solid var(--ink);
+}
+
+/* ============ 冷知識：黑板 ============ */
+.trivia{
+  background:#1f3a4a;color:#f7f1e1;
+  border:6px solid #7a5a39;border-radius:12px;
+  padding:clamp(22px,4.5vw,40px);
+  box-shadow:var(--shadow-lg), inset 0 0 0 3px rgba(247,241,225,.25);
+}
+.trivia .q{font-size:clamp(20px,4vw,30px);font-weight:800;line-height:1.5;margin-bottom:20px;}
+.reveal-btn{
+  font-family:inherit;font-weight:900;font-size:clamp(17px,3.2vw,22px);
+  background:var(--gold);color:var(--ink);
+  border:3px solid #0d161d;border-radius:12px;
+  padding:13px 28px;cursor:pointer;
+  box-shadow:3px 4px 0 #0d161d;
+  transition:transform .12s,box-shadow .12s;
+}
+.reveal-btn:active{transform:translate(2px,3px);box-shadow:1px 1px 0 #0d161d;}
+.trivia .a{
+  display:none;margin-top:20px;font-size:clamp(18px,3.4vw,25px);line-height:1.65;
+  font-weight:600;animation:fade .4s ease;
+  border-top:3px dashed rgba(242,176,51,.55);padding-top:18px;
+}
+.trivia .a.show{display:block;}
+.trivia .a b{color:var(--gold);}
+
+/* ============ 體驗：壓痕測試 ============ */
+.pit-stage{display:flex;flex-direction:column;align-items:center;gap:10px;margin:6px 0 4px;}
+.pit-skin{
+  position:relative;width:min(100%,520px);height:clamp(96px,22vw,128px);
+  border-radius:24px;cursor:pointer;
+  background:linear-gradient(180deg,#f3cfa8,var(--skin));
+  border:3px solid #c98c63;
+  box-shadow:var(--shadow),inset 0 6px 14px rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  transition:transform .12s;
+}
+.pit-skin:active{transform:scale(.99);}
+.pit-hint{font-weight:900;font-size:clamp(17px,3.2vw,22px);color:#7a4a23;pointer-events:none;}
+.dent{
+  position:absolute;left:50%;top:50%;width:74px;height:46px;border-radius:50%;
+  transform:translate(-50%,-50%) scale(.3);opacity:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 38%, rgba(0,0,0,.30), rgba(0,0,0,.06) 70%, transparent);
+  box-shadow:inset 0 7px 11px rgba(0,0,0,.38), inset 0 -3px 6px rgba(255,255,255,.4);
+  transition:opacity .15s,transform .15s;
+}
+.dent.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
+.dent.recover{transition:opacity 3s ease-out,transform 3s ease-out;}
+.pit-cap{
+  font-size:clamp(16px,3vw,21px);font-weight:700;line-height:1.5;text-align:center;
+  background:rgba(47,127,176,.1);border:3px dashed var(--sky);border-radius:14px;
+  padding:14px 16px;color:#1c4a64;width:min(100%,520px);
+}
+
+/* ============ 體驗：踝幫浦運動 ============ */
+.pump-stage{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.pump-gif{width:min(100%,440px);height:auto;border:3px solid var(--ink);border-radius:18px;box-shadow:var(--shadow);background:#fffdf4;display:block;}
+.pump-count{
+  display:flex;align-items:baseline;gap:10px;font-weight:900;
+  background:var(--ink);color:var(--paper);border-radius:14px;padding:8px 22px;
+}
+.pump-count .num{font-family:'Chocolate Classical Sans',serif;font-size:clamp(40px,9vw,60px);color:var(--gold);line-height:1;}
+.pump-count .lbl{font-size:clamp(15px,2.8vw,19px);}
+.pump-btn{
+  font-family:inherit;font-weight:900;font-size:clamp(19px,3.6vw,24px);
+  background:var(--sky);color:#fff;border:3px solid var(--ink);border-radius:16px;
+  padding:16px 36px;cursor:pointer;box-shadow:4px 5px 0 var(--ink);
+  transition:transform .1s,box-shadow .1s;
+}
+.pump-btn:active{transform:translate(3px,4px);box-shadow:1px 1px 0 var(--ink);}
+.pump-msg{
+  display:none;margin-top:6px;background:#e3f0e8;border:3px dashed var(--safe);border-radius:14px;
+  padding:14px 16px;font-size:clamp(16px,3vw,21px);font-weight:700;color:#1d5b41;text-align:center;
+  animation:fade .4s ease;
+}
+.pump-msg.show{display:block;}
+
+/* ============ 按摩示意圖 ============ */
+.rub-stage{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.rub-svg{width:min(100%,320px);height:auto;}
+.flow-arrow{fill:var(--sky);animation:flowUp 2.6s linear infinite;}
+.flow-arrow.d2{animation-delay:.87s;}
+.flow-arrow.d3{animation-delay:1.74s;}
+@keyframes flowUp{0%{transform:translateY(0);opacity:0;}14%{opacity:1;}80%{opacity:1;}100%{transform:translateY(-160px);opacity:0;}}
+.zone circle{fill:var(--sky);transition:fill .25s;}
+.zone text{fill:#fff;font-weight:900;}
+.zone.hi circle{fill:var(--gold);}
+.zone.hi text{fill:var(--ink);}
+.rub-steps{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+.rub-step{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;font-family:inherit;cursor:pointer;
+  background:var(--soft);border:3px solid var(--ink);border-radius:14px;padding:clamp(12px,2.6vw,16px);
+  box-shadow:var(--shadow);font-size:clamp(16px,3vw,21px);font-weight:700;color:var(--ink);line-height:1.4;
+  transition:transform .12s,box-shadow .12s,background .2s,border-color .2s;
+}
+.rub-step:active{transform:translate(2px,3px);box-shadow:1px 2px 0 rgba(29,43,53,.9);}
+.rub-step.active{background:#fff6df;border-color:var(--gold);}
+.rub-step .num{
+  flex-shrink:0;width:clamp(36px,6.4vw,46px);height:clamp(36px,6.4vw,46px);
+  background:var(--ink);color:var(--gold);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:clamp(17px,3.3vw,23px);font-weight:900;
+}
+.rub-step.active .num{background:var(--gold);color:var(--ink);}
+.rub-step .ar{margin-left:auto;color:var(--sky);font-weight:900;font-size:clamp(17px,3.2vw,21px);}
+
+/* ============ 行動步驟卡 ============ */
+.action-step{
+  display:flex;gap:16px;align-items:flex-start;
+  background:var(--soft);border:3px solid var(--ink);border-radius:16px;
+  padding:clamp(16px,3vw,24px);margin-bottom:16px;
+  box-shadow:var(--shadow);border-left:10px solid var(--gold);
+}
+.action-step .n{
+  flex-shrink:0;width:clamp(42px,7vw,54px);height:clamp(42px,7vw,54px);
+  background:var(--ink);color:var(--gold);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(23px,4vw,31px);font-weight:900;
+}
+.action-step .t{font-size:clamp(17px,3.2vw,23px);font-weight:700;line-height:1.5;color:var(--ink);}
+.action-step b{color:var(--alert);}
+
+/* ============ 封面 ============ */
+.cover{
+  background:
+    repeating-linear-gradient(135deg, transparent 0 30px, rgba(47,127,176,.02) 30px 60px),
+    radial-gradient(circle at 50% 0%, #2b4d5e, #1d2b35 68%);
+  color:var(--paper);
+}
+.cover .wrap{text-align:center;}
+.cover h1{color:var(--paper);text-shadow:4px 4px 0 rgba(0,0,0,.35);}
+.cover .sub{
+  display:inline-block;font-size:clamp(17px,3.4vw,26px);font-weight:900;
+  color:var(--ink);background:var(--gold);
+  padding:8px 22px;border-radius:10px;margin-top:24px;
+  transform:rotate(-1.2deg);box-shadow:4px 5px 0 rgba(0,0,0,.35);letter-spacing:.08em;
+}
+.seal{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:clamp(14px,3vw,22px) clamp(22px,4.5vw,32px);
+  border:6px solid var(--sky);border-radius:20px;
+  color:var(--sky);font-size:clamp(38px,9vw,60px);letter-spacing:.12em;
+  transform:rotate(-7deg);margin-bottom:22px;white-space:nowrap;
+  background:rgba(47,127,176,.10);
+  box-shadow:inset 0 0 0 3px rgba(47,127,176,.35);
+  text-indent:.12em;line-height:1;
+}
+.shield{font-size:clamp(56px,13vw,110px);line-height:1;margin-bottom:14px;filter:drop-shadow(5px 6px 0 rgba(0,0,0,.35));}
+.cover .tap-hint{margin-top:36px;font-size:clamp(15px,2.8vw,20px);opacity:.75;font-weight:700;animation:pulse 1.8s infinite;}
+@keyframes pulse{0%,100%{opacity:.45;}50%{opacity:.95;}}
+
+/* ============ 目錄 ============ */
+.menu{
+  position:fixed;inset:0;z-index:80;background:rgba(20,30,38,.97);
+  display:none;flex-direction:column;padding:clamp(24px,6vw,48px);
+  overflow-y:auto;color:var(--paper);
+}
+.menu.open{display:flex;animation:fade .3s ease;}
+.menu h3{font-family:'Chocolate Classical Sans','Noto Sans TC',serif;font-weight:400;font-size:clamp(26px,6vw,40px);margin-bottom:10px;color:var(--gold);letter-spacing:.06em;}
+.menu .close{position:absolute;top:18px;right:18px;background:none;border:none;color:var(--paper);font-size:36px;cursor:pointer;font-weight:300;}
+.menu-item{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,253,244,.07);border:2px solid rgba(242,176,51,.25);
+  color:var(--paper);font-family:inherit;text-align:left;width:100%;
+  padding:15px 18px;border-radius:12px;margin-top:10px;cursor:pointer;
+  font-size:clamp(16px,3vw,21px);font-weight:700;transition:background .2s,border-color .2s;
+}
+.menu-item:active{background:rgba(242,176,51,.22);border-color:var(--gold);}
+.menu-item .mi-num{
+  flex-shrink:0;width:34px;height:34px;background:var(--gold);color:var(--ink);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;
+}
+
+/* ============ 口訣卡片 ============ */
+.sld-list{display:flex;flex-direction:column;gap:14px;text-align:left;}
+.sld-card{
+  display:flex;align-items:center;gap:18px;
+  background:var(--soft);border:3px solid var(--ink);border-radius:16px;
+  padding:clamp(15px,3vw,20px);box-shadow:6px 7px 0 rgba(13,30,24,.55);
+}
+.sld-ico{
+  flex-shrink:0;width:clamp(56px,12vw,72px);height:clamp(56px,12vw,72px);
+  border:3px solid var(--ink);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(28px,6.5vw,40px);
+}
+.sld-text{display:flex;align-items:center;gap:14px;line-height:1.35;}
+.sld-text b{font-size:clamp(36px,8vw,52px);flex-shrink:0;}
+.sld-text span{font-size:clamp(15px,3vw,21px);font-weight:700;color:var(--ink);}
+@media(min-width:1024px){
+  .sld-list{flex-direction:row;}
+  .sld-card{flex:1;flex-direction:column;text-align:center;gap:12px;padding:26px 16px;}
+  .sld-text{flex-direction:column;align-items:center;gap:6px;}
+}
+
+.note{font-size:clamp(13px,2.4vw,16px);color:#74808b;font-weight:600;margin-top:18px;line-height:1.55;}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.tag{font-size:clamp(13px,2.4vw,16px);font-weight:900;padding:5px 13px;border-radius:8px;border:2.5px solid currentColor;letter-spacing:.06em;}
+.tag.r{color:var(--alert);background:rgba(210,63,46,.08);}
+.tag.g{color:var(--safe);background:rgba(44,122,91,.08);}
+.tag.b{color:var(--sky);background:rgba(47,127,176,.08);}
+
+/* ============ 桌機 16:9 ============ */
+@media(min-width:1024px){
+  .slide{padding:64px 80px;padding-bottom:calc(100px + env(safe-area-inset-bottom,0px));}
+  .g2{gap:24px;}
+}
+
+button:focus-visible,.opt:focus-visible,.clue:focus-visible,a:focus-visible,.match-item:focus-visible,.sort-item:focus-visible{outline:4px solid var(--gold);outline-offset:3px;}
+@media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="topbar-fill" id="bar"></div></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1 封面 -->
+  <section class="slide cover active">
+    <div class="wrap">
+      <div class="seal">消腫</div>
+      <h1>腳腫腿脹<br>不再忍</h1>
+      <div class="sub">護理師教你 ‧ 下肢水腫照護</div>
+      <p class="lead" style="color:#c9d4de;margin-top:24px;max-width:640px;margin-left:auto;margin-right:auto;">
+        腳腫起來，不一定是「老了正常」，<br>而是身體在跟你說話。<br>
+        今天護理師帶大家看懂、學會自己處理。
+      </p>
+      <div class="tap-hint">👉 點右下角「下一頁」開始</div>
+    </div>
+  </section>
+
+  <!-- 2 水腫是什麼 + 互動圖表 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="eyebrow">🩺 先認識它</span>
+      <h2>什麼是「下肢水腫」？</h2>
+      <p class="lead" style="margin-bottom:16px;">
+        簡單說，就是<b style="color:var(--sky);">組織縫隙裡積了太多水</b>。
+        手指壓下去會凹一個洞、慢慢才彈回來，最常出現在<b>腳踝、小腿</b>。
+      </p>
+      <div class="card">
+        <div style="font-weight:900;font-size:clamp(17px,3.2vw,22px);margin-bottom:6px;">📈 你的腳，越到傍晚越腫嗎？</div>
+        <div class="bars" id="bars">
+          <div class="bar-row"><div class="bar-label">早上</div><div class="bar-track"><div class="bar-fill" data-w="28" style="background:var(--safe);">輕</div></div></div>
+          <div class="bar-row"><div class="bar-label">中午</div><div class="bar-track"><div class="bar-fill" data-w="50" style="background:var(--sky);">有點脹</div></div></div>
+          <div class="bar-row"><div class="bar-label">傍晚</div><div class="bar-track"><div class="bar-fill" data-w="76" style="background:var(--gold);">明顯</div></div></div>
+          <div class="bar-row"><div class="bar-label">睡前</div><div class="bar-track"><div class="bar-fill" data-w="94" style="background:var(--alert);">最腫</div></div></div>
+        </div>
+        <p class="note" style="margin-top:12px;">示意圖：受地心引力影響，久坐久站的人下肢水分常常「越到晚上越明顯」，這多半是姿勢性的。</p>
+      </div>
+      <p class="lead" style="margin-top:14px;">
+        👉 腳腫<b>不一定是大病</b>，但「<b style="color:var(--alert);">持續不退、越來越嚴重、單腳、紅熱痛</b>」就要當心。
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 原因：配對遊戲 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag" style="background:var(--sky);">🔗 配對遊戲</span>
+      <h2>腳為什麼會腫？</h2>
+      <p class="lead" style="margin-bottom:16px;">先點左邊「原因」，再點右邊對應的「關鍵」，把它們連起來 👇</p>
+      <div class="match-game" id="m1">
+        <div class="match-wrap">
+          <div class="match-col">
+            <div class="match-head l">原因</div>
+            <button class="match-item" data-side="L" data-pair="a1" onclick="mItem(this)">久坐久站不動</button>
+            <button class="match-item" data-side="L" data-pair="a2" onclick="mItem(this)">吃太鹹</button>
+            <button class="match-item" data-side="L" data-pair="a3" onclick="mItem(this)">心臟比較無力</button>
+            <button class="match-item" data-side="L" data-pair="a4" onclick="mItem(this)">某些血壓藥</button>
+            <button class="match-item" data-side="L" data-pair="a5" onclick="mItem(this)">蛋白質不足</button>
+          </div>
+          <div class="match-col">
+            <div class="match-head r">關鍵</div>
+            <button class="match-item" data-side="R" data-pair="a3" onclick="mItem(this)">全身循環變差</button>
+            <button class="match-item" data-side="R" data-pair="a5" onclick="mItem(this)">水分跑出血管</button>
+            <button class="match-item" data-side="R" data-pair="a1" onclick="mItem(this)">血液回不去</button>
+            <button class="match-item" data-side="R" data-pair="a4" onclick="mItem(this)">藥物副作用</button>
+            <button class="match-item" data-side="R" data-pair="a2" onclick="mItem(this)">鹽分把水留住</button>
+          </div>
+        </div>
+        <div class="feedback ok match-done" style="margin-top:16px;">
+          🎉 全部配對成功！原因很多——還有<b>靜脈曲張、淋巴、腎臟、肝臟</b>問題等。
+          重點是：<b>先找出原因，才能對症處理</b>，不是一律「少喝水」。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 水腫的影響 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--alert);">⚠️ 別輕忽</span>
+      <h2>腳腫不管它，會怎樣？</h2>
+      <div class="grid g2">
+        <div class="card icard"><div class="em">🚶</div><div class="tx">走路<b style="color:var(--alert);">重心不穩</b>、容易跌倒</div></div>
+        <div class="card icard"><div class="em">🦠</div><div class="tx">皮膚緊繃易<b style="color:var(--alert);">破皮、感染</b>（蜂窩性組織炎）</div></div>
+        <div class="card icard"><div class="em">🩹</div><div class="tx">血液循環差，<b style="color:var(--alert);">傷口不容易好</b></div></div>
+        <div class="card icard"><div class="em">😣</div><div class="tx">沉重痠脹、睡不好、<b style="color:var(--alert);">鞋子穿不下</b></div></div>
+      </div>
+      <div class="card" style="margin-top:16px;background:rgba(210,63,46,.07);border-left:8px solid var(--alert);">
+        <p style="font-size:clamp(16px,3.1vw,22px);font-weight:700;line-height:1.55;">
+          ❗ 最重要的是：腳腫有時候是<b style="color:var(--alert);">心臟、腎臟在求救的警訊</b>，不能只當成「累了腳腫」。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 常見迷思：是非大挑戰 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag" style="background:var(--alert);">🎯 真假大挑戰</span>
+      <h2>這些「水腫迷思」你中了嗎？</h2>
+      <p class="lead" style="margin-bottom:18px;">看完句子，按下你的答案，再看護理師解答 👇</p>
+
+      <div class="tf-card" data-true="0">
+        <div class="tf-q"><span class="badge">迷思 1</span>「腳腫就是水喝太多，少喝水就會消。」</div>
+        <div class="tf-btns">
+          <button class="tf-true" onclick="tf(this,true)">✅ 真的</button>
+          <button class="tf-false" onclick="tf(this,false)">❌ 迷思</button>
+        </div>
+        <div class="tf-ans"><span class="verdict">這是迷思！</span>喝太少反而讓身體更想「存水」。<b>重點是找出原因</b>，不是憋著不喝水（除非醫師交代要限水）。</div>
+      </div>
+
+      <div class="tf-card" data-true="0">
+        <div class="tf-q"><span class="badge">迷思 2</span>「水腫自己去藥局買利尿劑吃就好。」</div>
+        <div class="tf-btns">
+          <button class="tf-true" onclick="tf(this,true)">✅ 真的</button>
+          <button class="tf-false" onclick="tf(this,false)">❌ 迷思</button>
+        </div>
+        <div class="tf-ans"><span class="verdict">這是迷思！</span>亂吃利尿劑會<b>脫水、電解質失衡、頭暈跌倒</b>。要不要用、用多少，<b>一定要先問醫師</b>。</div>
+      </div>
+
+      <div class="tf-card" data-true="0">
+        <div class="tf-q"><span class="badge">迷思 3</span>「老人家腳腫很正常，不用理它。」</div>
+        <div class="tf-btns">
+          <button class="tf-true" onclick="tf(this,true)">✅ 真的</button>
+          <button class="tf-false" onclick="tf(this,false)">❌ 迷思</button>
+        </div>
+        <div class="tf-ans"><span class="verdict">這是迷思！</span>可能正常，<b>也可能是疾病警訊</b>。會分辨最重要——尤其是單腳、紅熱痛、合併喘的時候。</div>
+      </div>
+
+      <div class="tf-card" data-true="0">
+        <div class="tf-q"><span class="badge">迷思 4</span>「腳腫就用力給它推、用力按，比較快消。」</div>
+        <div class="tf-btns">
+          <button class="tf-true" onclick="tf(this,true)">✅ 真的</button>
+          <button class="tf-false" onclick="tf(this,false)">❌ 迷思</button>
+        </div>
+        <div class="tf-ans"><span class="verdict">這是迷思！</span>用力亂壓可能傷皮膚；<b>發炎、血栓時更不能按</b>。按摩要輕柔、方向對（後面會教）。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 冷知識① -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="eyebrow">💡 水腫冷知識</span>
+      <div class="trivia">
+        <div class="q">🦵 為什麼小腿被叫做「人體的第二顆心臟」？</div>
+        <button class="reveal-btn" onclick="reveal(this)">點我看答案</button>
+        <div class="a">
+          因為血液要從腳「逆著地心引力」流回心臟，靠的是<b>小腿肌肉一收一放</b>的擠壓，像幫浦一樣把血往上推。<br><br>
+          👉 所以「久坐不動」小腿幫浦停擺，水就積在腳上。<b>多動小腿，就是最天然的消腫法！</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 體驗：壓痕測試 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag" style="background:var(--sky);">👆 親手體驗</span>
+      <h2>壓壓看：是不是「凹陷性水腫」？</h2>
+      <p class="lead" style="margin-bottom:14px;">
+        在<b>小腿骨前面（脛骨）</b>或腳踝內側骨頭上方，用手指壓住約 <b>5 秒</b>再放開。下面也來壓壓看 👇
+      </p>
+      <div class="pit-stage">
+        <div class="pit-skin" onclick="pitPress(this)" role="button" tabindex="0" onkeydown="if(event.key==='Enter')pitPress(this)">
+          <span class="pit-hint">👆 點我，用力壓下去</span>
+          <span class="dent"></span>
+        </div>
+        <div class="pit-cap" id="pit-cap">準備好了嗎？壓壓看小腿前側的皮膚。</div>
+      </div>
+      <div class="card" style="margin-top:14px;">
+        <p style="font-size:clamp(16px,3.1vw,22px);font-weight:700;line-height:1.55;">
+          🔎 凹下去、<b style="color:var(--sky);">慢慢才彈回來</b>＝凹陷性水腫。<br>
+          凹得越深、回彈越慢，代表越嚴重（醫療上分 1+～4+ 級）。
+        </p>
+      </div>
+      <p class="note">若壓「壓不太凹」、又硬又緊繃，可能是淋巴水腫，需要專業評估，按摩方式也不同。</p>
+    </div>
+  </section>
+
+  <!-- 8 判斷：哪種要馬上就醫（選擇題） -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag">情境題 ‧ 判斷</span>
+      <h2>🚩 哪一種腳腫<br>要「馬上」看醫生？</h2>
+      <p class="lead" style="margin-bottom:18px;">下面三種情況，哪一個最緊急、不能拖？</p>
+      <div id="q1">
+        <button class="opt" onclick="answer(this,'q1',false,'兩腳一樣、傍晚較腫、抬高會消，多是姿勢性水腫，可以先觀察＋抬腳；但如果一直不退，還是要請醫師檢查。')">
+          <span class="ico">A</span>兩腳都微腫，傍晚較明顯，抬高就消一些
+        </button>
+        <button class="opt" onclick="answer(this,'q1',true,'完全正確！只有「單腳」突然又紅又腫又熱又痛，可能是深層靜脈血栓（DVT），血塊跑到肺部會有生命危險，要立刻就醫，千萬不要自己亂按摩。')">
+          <span class="ico">B</span>只有一隻腳，突然又紅、又腫、又熱、又痛
+        </button>
+        <button class="opt" onclick="answer(this,'q1',false,'按下去凹一個洞，只是「凹陷性水腫」的特徵，是判斷的依據，本身不代表危急。真正最緊急的是「單腳紅腫熱痛」。')">
+          <span class="ico">C</span>按下去會凹一個洞，慢慢彈回來
+        </button>
+      </div>
+      <div class="feedback" id="fb-q1"></div>
+    </div>
+  </section>
+
+  <!-- 9 大家來找碴 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag" style="background:var(--alert);">🔍 大家來找碴</span>
+      <h2>阿伯的一天<br>哪些習慣讓腳更腫？</h2>
+      <p class="lead" style="margin-bottom:14px;">點一點你覺得「會害腳更腫」的地方，<span class="spot-counter" id="spot-n">已找到 0 / 3</span></p>
+      <div class="spot-msg">
+        <div style="font-weight:800;font-size:clamp(15px,2.8vw,19px);color:#5a6772;margin-bottom:6px;">📖 王伯伯的星期天</div>
+        <div class="bubble">
+          王伯伯早餐吃了<span class="clue" onclick="spot(this)">很鹹的醬瓜配稀飯</span>，
+          整個上午<span class="clue" onclick="spot(this)">坐在沙發看電視都沒起來動</span>，
+          下午腳腫了，他也<span class="clue" onclick="spot(this)">把腳垂在椅子下沒抬高</span>，
+          還說「忍一下就好啦」。
+        </div>
+      </div>
+      <div class="feedback ok" id="spot-done" style="margin-top:16px;">
+        🎉 全部找到了！破綻是：<b>①吃太鹹</b>（鹽分把水留在身體）、
+        <b>②久坐不動</b>（小腿幫浦停擺，血水回不去）、
+        <b>③腳一直下垂</b>（水順著重力往腳底積）。三個壞習慣全包了！
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 冷知識② -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="eyebrow">💡 水腫冷知識</span>
+      <div class="trivia">
+        <div class="q">🚀 太空人在太空中，為什麼變成「臉腫腿細」？</div>
+        <button class="reveal-btn" onclick="reveal(this)">點我看答案</button>
+        <div class="a">
+          因為太空中沒有地心引力，平常被重力拉到腳的體液<b>會往上半身跑</b>——臉變得腫腫的、腿反而變細（叫「puffy-face bird-legs」）。<br><br>
+          👉 這正好證明：你的腳會腫，<b>地心引力是大幫兇</b>。所以「把腳抬高」就是借重力幫你把水送回去！
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 解決總覽：口訣 動抬穿控 -->
+  <section class="slide" style="background:linear-gradient(150deg,#2f8f6b,#1e6b4e);color:#fff;">
+    <div class="wrap" style="text-align:center;">
+      <span class="eyebrow" style="background:rgba(255,255,255,.18);color:#fff;border-color:#fff;">🔑 記住四個字</span>
+      <h2 style="color:#fff;margin-bottom:22px;">消腫四招<br>「動、抬、穿、控」</h2>
+      <div class="sld-list">
+        <div class="sld-card">
+          <div class="sld-ico" style="background:var(--sky);">🚶</div>
+          <div class="sld-text"><b style="color:var(--sky);">動</b><span>多動小腿、<br>別久坐久站</span></div>
+        </div>
+        <div class="sld-card">
+          <div class="sld-ico" style="background:var(--gold);">🦵</div>
+          <div class="sld-text"><b style="color:#9a6b12;">抬</b><span>坐臥把腳<br>抬高過心臟</span></div>
+        </div>
+        <div class="sld-card">
+          <div class="sld-ico" style="background:#1e6b4e;">🧦</div>
+          <div class="sld-text"><b style="color:#1e6b4e;">穿</b><span>醫療彈性襪<br>幫忙加壓</span></div>
+        </div>
+        <div class="sld-card">
+          <div class="sld-ico" style="background:var(--alert);">🧂</div>
+          <div class="sld-text"><b style="color:var(--alert);">控</b><span>控鹽、控制<br>慢性病用藥</span></div>
+        </div>
+      </div>
+      <p class="note" style="color:rgba(255,255,255,.8);">接下來，我們一招一招實際做給你看。</p>
+    </div>
+  </section>
+
+  <!-- 12 體驗：踝幫浦運動 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag" style="background:var(--sky);">🏃 跟我一起做</span>
+      <h2>第一招：踝幫浦運動</h2>
+      <p class="lead" style="margin-bottom:14px;">
+        坐著或躺著，腳尖<b style="color:var(--sky);">用力勾起來</b>（朝自己）、再<b style="color:var(--sky);">用力踩下去</b>，
+        一勾一踩。看著下面示範一起做 <b>10 下</b> 👇
+      </p>
+      <div class="pump-stage">
+        <img class="pump-gif" src="__PUMP_GIF__" alt="踝幫浦運動示範：腳尖勾起來再踩下去">
+        <div class="pump-count"><span class="num" id="pump-n">0</span><span class="lbl">下</span></div>
+        <button class="pump-btn" onclick="pump()">跟著做一下 ➜ 計數 +1</button>
+        <div class="pump-msg" id="pump-msg">👍 太棒了，完成 10 下！每天分幾組做，腳會輕鬆很多。</div>
+      </div>
+      <p class="note">這個動作會擠壓小腿肌肉、啟動「第二顆心臟」，把積在腳上的水推回去。等公車、看電視時都能做。</p>
+    </div>
+  </section>
+
+  <!-- 13 按摩示意圖 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag" style="background:var(--gold);color:var(--ink);">🖐️ 跟著示意圖</span>
+      <h2>第二招：按摩，由下往上推</h2>
+      <p class="lead" style="margin-bottom:14px;">
+        方向最重要：<b>由遠往近、往心臟方向</b>輕輕推。看著箭頭，從腳一路推到大腿 👇（點下面步驟會在圖上標位置）
+      </p>
+      <div class="card rub-stage">
+        <svg viewBox="0 0 300 250" class="rub-svg" role="img" aria-label="腿部按摩方向示意圖，由腳往心臟方向往上推">
+          <!-- 心臟 -->
+          <path d="M150 30 C150 20, 135 18, 135 28 C135 37, 150 44, 150 44 C150 44, 165 37, 165 28 C165 18, 150 20, 150 30 Z" fill="var(--alert)"/>
+          <!-- 腿 -->
+          <rect x="118" y="48" width="66" height="76" rx="28" fill="var(--skin)" stroke="#c98c63" stroke-width="3"/>
+          <rect x="127" y="116" width="46" height="80" rx="22" fill="var(--skin)" stroke="#c98c63" stroke-width="3"/>
+          <rect x="133" y="190" width="34" height="24" rx="12" fill="var(--skin)" stroke="#c98c63" stroke-width="3"/>
+          <rect x="131" y="208" width="74" height="26" rx="13" fill="var(--skin)" stroke="#c98c63" stroke-width="3"/>
+          <circle cx="203" cy="221" r="11" fill="var(--skin)" stroke="#c98c63" stroke-width="3"/>
+          <!-- 往上流動的箭頭 -->
+          <g class="flow-arrow"><polygon points="151,196 141,214 161,214"/><rect x="146" y="212" width="10" height="16" rx="3"/></g>
+          <g class="flow-arrow d2"><polygon points="151,196 141,214 161,214"/><rect x="146" y="212" width="10" height="16" rx="3"/></g>
+          <g class="flow-arrow d3"><polygon points="151,196 141,214 161,214"/><rect x="146" y="212" width="10" height="16" rx="3"/></g>
+          <!-- 部位標號 -->
+          <g class="zone" id="z1"><circle cx="186" cy="221" r="15"/><text x="186" y="227" text-anchor="middle" font-size="18">1</text></g>
+          <g class="zone" id="z2"><circle cx="151" cy="201" r="15"/><text x="151" y="207" text-anchor="middle" font-size="18">2</text></g>
+          <g class="zone" id="z3"><circle cx="151" cy="152" r="15"/><text x="151" y="158" text-anchor="middle" font-size="18">3</text></g>
+          <g class="zone" id="z4"><circle cx="151" cy="80" r="15"/><text x="151" y="86" text-anchor="middle" font-size="18">4</text></g>
+        </svg>
+        <div style="font-weight:900;color:var(--sky);font-size:clamp(15px,2.8vw,19px);text-align:center;">⬆ 箭頭方向＝往心臟，把積水送回去</div>
+      </div>
+      <div class="rub-steps">
+        <button class="rub-step" onclick="rubStep(this,1)"><span class="num">1</span>腳趾、腳掌：先輕輕揉開<span class="ar">↑</span></button>
+        <button class="rub-step" onclick="rubStep(this,2)"><span class="num">2</span>腳踝：繞著踝骨往上推<span class="ar">↑</span></button>
+        <button class="rub-step" onclick="rubStep(this,3)"><span class="num">3</span>小腿：往膝蓋方向推<span class="ar">↑</span></button>
+        <button class="rub-step" onclick="rubStep(this,4)"><span class="num">4</span>大腿：往大腿根部推<span class="ar">↑</span></button>
+      </div>
+      <p class="note">力道要輕柔、像撫摸，每段重複幾次。皮膚紅、熱、痛，或有傷口、疑似血栓時，<b style="color:var(--alert);">不要按摩</b>，先就醫。</p>
+    </div>
+  </section>
+
+  <!-- 14 擺位：選對姿勢（選擇題） -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag">情境題 ‧ 擺位</span>
+      <h2>🛏️ 第三招：腳要怎麼擺<br>才消腫？</h2>
+      <p class="lead" style="margin-bottom:18px;">躺著休息時，哪個擺位最能幫腳消腫？</p>
+      <div id="q2">
+        <button class="opt" onclick="answer(this,'q2',false,'腳和身體一樣高，效果有限。要「高過心臟」，才能讓水順著重力流回身體。')">
+          <span class="ico">A</span>腳平放，和身體一樣高
+        </button>
+        <button class="opt" onclick="answer(this,'q2',true,'正確！腳墊高過心臟約 20～30 公分，水分就會順著重力流回身體，消腫最有效。記得整條腿都墊穩、膝蓋微彎。一次 15～20 分鐘，一天做幾次。')">
+          <span class="ico">B</span>腳下墊枕頭，高過心臟約 20～30 公分
+        </button>
+        <button class="opt" onclick="answer(this,'q2',false,'雙腳垂在床邊，反而讓水更往腳底積、更腫。要把腳抬高才對。')">
+          <span class="ico">C</span>雙腳垂在床邊放鬆
+        </button>
+      </div>
+      <div class="feedback" id="fb-q2"></div>
+    </div>
+  </section>
+
+  <!-- 15 綜合配對：該怎麼辦 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag" style="background:var(--sky);">🔗 綜合配對</span>
+      <h2>遇到這些情況<br>該怎麼做？</h2>
+      <p class="lead" style="margin-bottom:16px;">點左邊「情況」，再點右邊對應的「行動」 👇</p>
+      <div class="match-game" id="m2">
+        <div class="match-wrap">
+          <div class="match-col">
+            <div class="match-head l">情況</div>
+            <button class="match-item" data-side="L" data-pair="b1" onclick="mItem(this)">看電視坐很久</button>
+            <button class="match-item" data-side="L" data-pair="b2" onclick="mItem(this)">晚上腳脹脹的</button>
+            <button class="match-item" data-side="L" data-pair="b3" onclick="mItem(this)">鞋子突然變很緊</button>
+            <button class="match-item" data-side="L" data-pair="b4" onclick="mItem(this)">單腳紅腫熱痛</button>
+          </div>
+          <div class="match-col">
+            <div class="match-head r">行動</div>
+            <button class="match-item" data-side="R" data-pair="b4" onclick="mItem(this)">立刻就醫</button>
+            <button class="match-item" data-side="R" data-pair="b2" onclick="mItem(this)">躺下把腳墊高</button>
+            <button class="match-item" data-side="R" data-pair="b1" onclick="mItem(this)">起來走動＋踝幫浦</button>
+            <button class="match-item" data-side="R" data-pair="b3" onclick="mItem(this)">量腿圍、做記錄</button>
+          </div>
+        </div>
+        <div class="feedback ok match-done" style="margin-top:16px;">
+          🎉 全對！平時用「<b>動、抬、量、記</b>」自我照顧，<b style="color:var(--alert);">出現警訊就立刻就醫</b>，這樣最安心。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 消除行動：每天這樣做 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--safe);border-color:var(--safe);">✅ 消除行動</span>
+      <h2>今天起，每天這樣做</h2>
+      <div class="action-step"><div class="n">1</div><div class="t">每坐 1 小時，<b>起來動 3～5 分鐘</b>，順便做做踝幫浦</div></div>
+      <div class="action-step"><div class="n">2</div><div class="t">早晚各一次，把腳<b>抬高過心臟 15～20 分鐘</b></div></div>
+      <div class="action-step"><div class="n">3</div><div class="t">飲食<b>少鹽、少加工食品</b>；慢性病的藥<b>按時吃</b></div></div>
+      <div class="action-step"><div class="n">4</div><div class="t">每週<b>量一次腿圍</b>並記錄；鞋襪變緊就提高警覺</div></div>
+      <div class="action-step"><div class="n">5</div><div class="t">醫師建議的<b>彈性襪白天穿</b>、睡覺前脫掉</div></div>
+    </div>
+  </section>
+
+  <!-- 17 警訊：快看醫生 -->
+  <section class="slide" style="background:linear-gradient(150deg,#2a1c1c,#3d2424);color:#fff;">
+    <div class="wrap">
+      <span class="eyebrow" style="background:rgba(255,255,255,.16);color:#ffd9d2;border-color:#ffd9d2;">🆘 出現這些，別等！</span>
+      <h2 style="color:#fff;">這幾種腳腫<br>請盡快就醫</h2>
+      <div class="action-step" style="border-left-color:var(--alert);"><div class="n" style="color:var(--alert);">1</div><div class="t"><b>單腳</b>突然腫、紅、熱、痛 → 可能是血栓（DVT）</div></div>
+      <div class="action-step" style="border-left-color:var(--alert);"><div class="n" style="color:var(--alert);">2</div><div class="t">腳腫又<b>會喘</b>、躺下更喘、晚上喘醒 → 可能心臟問題</div></div>
+      <div class="action-step" style="border-left-color:var(--alert);"><div class="n" style="color:var(--alert);">3</div><div class="t"><b>尿變少、臉也腫</b>、體重快速增加 → 可能腎臟問題</div></div>
+      <div class="action-step" style="border-left-color:var(--alert);"><div class="n" style="color:var(--alert);">4</div><div class="t">皮膚<b>破皮、流組織液、發燙</b> → 可能感染</div></div>
+      <div class="action-step" style="border-left-color:var(--alert);"><div class="n" style="color:var(--alert);">5</div><div class="t">腳腫<b>越來越嚴重</b>，怎麼抬都不消</div></div>
+      <p class="note" style="color:#c9a9a9;">不確定就先問醫師或護理師。早一點檢查，早一點安心。</p>
+    </div>
+  </section>
+
+  <!-- 18 結尾複習 -->
+  <section class="slide cover">
+    <div class="wrap" style="text-align:center;">
+      <div class="shield">💚</div>
+      <h1 style="color:var(--paper);">腳輕鬆<br>人就有活力</h1>
+      <div class="card" style="margin:24px auto 0;max-width:560px;text-align:left;">
+        <div style="font-weight:900;font-size:clamp(18px,3.4vw,24px);color:var(--ink);margin-bottom:10px;text-align:center;">🔑 一起複習：動 ‧ 抬 ‧ 穿 ‧ 控</div>
+        <p style="font-size:clamp(16px,3.1vw,21px);font-weight:700;line-height:1.7;color:var(--ink);">
+          <b style="color:var(--sky);">動</b>一動小腿 ‧ <b style="color:#9a6b12;">抬</b>高雙腳 ‧ <b style="color:var(--safe);">穿</b>對彈性襪 ‧ <b style="color:var(--alert);">控</b>好鹽和慢性病
+        </p>
+      </div>
+      <p class="lead" style="color:#c9d4de;margin-top:24px;">
+        腳腫會說話，學會聽懂它。<br>
+        有<b style="color:var(--gold);">單腳紅腫熱痛、會喘</b>等警訊，<b style="color:var(--gold);">別忍，趕快就醫</b>。
+      </p>
+      <p class="note" style="text-align:center;">護理師陪你，一起照顧好自己的雙腳 💚</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- 目錄 -->
+<div class="menu" id="menu">
+  <button class="close" onclick="toggleMenu()">×</button>
+  <h3>📑 目錄</h3>
+  <div id="menu-list"></div>
+</div>
+
+<!-- 導航列 -->
+<nav class="nav">
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <span class="counter"><span id="cur">1</span> / <span id="total">18</span></span>
+  <div style="display:flex;gap:10px;">
+    <button id="prev" onclick="go(-1)">上一頁</button>
+    <button id="next" onclick="go(1)">下一頁 ›</button>
+  </div>
+</nav>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+const titles=['封面','水腫是什麼','原因配對','水腫的影響','迷思大挑戰','冷知識:第二顆心臟','體驗:壓痕測試','判斷:哪種要就醫','大家來找碴','冷知識:重力與太空人','口訣:動抬穿控','體驗:踝幫浦運動','按摩示意圖','擺位:選對姿勢','綜合配對:該怎麼辦','消除行動','警訊:快看醫生','結尾複習'];
+let i=0;
+const total=slides.length;
+document.getElementById('total').textContent=total;
+
+function render(){
+  slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+  document.getElementById('cur').textContent=i+1;
+  document.getElementById('bar').style.width=((i+1)/total*100)+'%';
+  document.getElementById('prev').disabled=i===0;
+  document.getElementById('next').disabled=i===total-1;
+  slides[i].scrollTop=0;
+  if(slides[i].querySelector('#bars')) animateBars();
+}
+function go(d){const n=i+d;if(n>=0&&n<total){i=n;render();}}
+
+// 鍵盤
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown')go(1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')go(-1);
+});
+// 滑動
+let sx=0;
+document.getElementById('deck').addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+document.getElementById('deck').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-sx;
+  if(Math.abs(dx)>70){if(dx<0)go(1);else go(-1);}
+},{passive:true});
+
+// 選擇題
+function answer(btn,id,correct,msg){
+  const box=document.getElementById(id);
+  if(box.dataset.done)return;
+  box.dataset.done=1;
+  [...box.querySelectorAll('.opt')].forEach(o=>{if(o!==btn)o.classList.add('dim');});
+  btn.classList.add(correct?'correct':'wrong');
+  btn.classList.remove('dim');
+  const fb=document.getElementById('fb-'+id);
+  fb.className='feedback show '+(correct?'ok':'no');
+  fb.innerHTML=(correct?'✅ 答對了！<br>':'❌ 要小心！<br>')+msg;
+}
+
+// 冷知識
+function reveal(btn){btn.nextElementSibling.classList.add('show');btn.style.display='none';}
+
+// 找碴
+let found=0;
+function spot(el){
+  if(el.classList.contains('found'))return;
+  el.classList.add('found');found++;
+  document.getElementById('spot-n').textContent='已找到 '+found+' / 3';
+  if(found>=3)document.getElementById('spot-done').classList.add('show');
+}
+
+// 圖表動畫
+function animateBars(){
+  setTimeout(()=>{
+    document.querySelectorAll('#bars .bar-fill').forEach(f=>{f.style.width=f.dataset.w+'%';});
+  },200);
+}
+
+// 是非：迷思大挑戰
+function tf(btn,userTrue){
+  const card=btn.closest('.tf-card');
+  if(card.dataset.done)return;card.dataset.done=1;
+  const actuallyTrue=card.dataset.true==='1';
+  const correct=(userTrue===actuallyTrue);
+  card.querySelectorAll('.tf-btns button').forEach(b=>{b.disabled=true;if(b!==btn)b.classList.add('faded');});
+  btn.classList.add(correct?'picked-right':'picked-wrong');
+  card.querySelector('.tf-ans').classList.add('show');
+}
+
+// 配對遊戲（支援多組）
+const matchState={};
+function mItem(el){
+  const cont=el.closest('.match-game');
+  const id=cont.id;
+  if(!matchState[id])matchState[id]={sel:null};
+  const st=matchState[id];
+  if(el.classList.contains('matched'))return;
+  if(el.dataset.side==='L'){
+    cont.querySelectorAll('.match-item[data-side="L"]').forEach(x=>x.classList.remove('sel'));
+    el.classList.add('sel');
+    st.sel=el;
+  }else{
+    if(!st.sel)return;
+    if(st.sel.dataset.pair===el.dataset.pair){
+      st.sel.classList.add('matched');st.sel.classList.remove('sel');
+      el.classList.add('matched');
+      st.sel=null;
+      const left=cont.querySelectorAll('.match-item[data-side="L"]');
+      const done=[...left].every(x=>x.classList.contains('matched'));
+      if(done)cont.querySelector('.match-done').classList.add('show');
+    }else{
+      el.classList.add('shake');
+      setTimeout(()=>el.classList.remove('shake'),400);
+    }
+  }
+}
+
+// 排序遊戲
+const sortState={};
+function sTap(el){
+  const cont=el.closest('.sort-game');const id=cont.id;
+  if(!sortState[id])sortState[id]={seq:0};
+  const st=sortState[id];
+  if(el.dataset.assigned)return;
+  if(cont.dataset.checked)return;
+  st.seq++;
+  el.dataset.assigned=st.seq;
+  el.querySelector('.badge').textContent=st.seq;
+  el.classList.add('picked');
+  const items=cont.querySelectorAll('.sort-item');
+  if(st.seq===items.length){
+    cont.dataset.checked=1;
+    let allok=true;
+    items.forEach(it=>{
+      if(parseInt(it.dataset.assigned)===parseInt(it.dataset.pos)){it.classList.add('ok');}
+      else{it.classList.add('bad');allok=false;}
+    });
+    const res=cont.querySelector('.sort-result');
+    res.className='feedback sort-result show '+(allok?'ok':'no');
+    res.innerHTML=allok
+      ?'🎉 順序正確！由<b>腳趾→腳踝→小腿→大腿</b>，把水一路往心臟方向推。'
+      :'差一點！正確順序是：<b>① 腳趾、腳掌 → ② 腳踝 → ③ 小腿 → ④ 大腿</b>。由遠往近、往心臟推。按「再試一次」重來。';
+  }
+}
+function sReset(btn){
+  const cont=btn.closest('.sort-game');const id=cont.id;
+  sortState[id]={seq:0};delete cont.dataset.checked;
+  cont.querySelectorAll('.sort-item').forEach(it=>{
+    delete it.dataset.assigned;
+    it.classList.remove('picked','ok','bad');
+    it.querySelector('.badge').textContent='?';
+  });
+  cont.querySelector('.sort-result').className='feedback sort-result';
+}
+
+// 體驗：壓痕測試
+function pitPress(zone){
+  if(zone.dataset.busy)return;zone.dataset.busy=1;
+  const dent=zone.querySelector('.dent');
+  const cap=document.getElementById('pit-cap');
+  const hint=zone.querySelector('.pit-hint');
+  hint.style.opacity='.3';
+  dent.classList.remove('recover');
+  dent.classList.add('on');
+  cap.innerHTML='🫳 壓下去……皮膚凹了一個洞！';
+  setTimeout(()=>{
+    cap.innerHTML='⏳ 慢慢才彈回來——凹痕停留越久，代表水腫越嚴重。';
+    dent.classList.add('recover');
+    dent.classList.remove('on');
+  },950);
+  setTimeout(()=>{
+    cap.innerHTML='✅ 這就是「凹陷性水腫」的測試。可以再壓一次試試！';
+    dent.classList.remove('recover');
+    hint.style.opacity='1';
+    zone.dataset.busy='';
+  },4300);
+}
+
+// 體驗：踝幫浦運動
+let pumpCount=0;
+function pump(){
+  const foot=document.getElementById('foot-grp');
+  foot.classList.toggle('flex');
+  pumpCount++;
+  document.getElementById('pump-n').textContent=pumpCount;
+  if(pumpCount===10)document.getElementById('pump-msg').classList.add('show');
+}
+
+// 目錄
+function toggleMenu(){document.getElementById('menu').classList.toggle('open');}
+const ml=document.getElementById('menu-list');
+titles.forEach((t,n)=>{
+  const b=document.createElement('button');
+  b.className='menu-item';
+  b.innerHTML='<span class="mi-num">'+(n+1)+'</span>'+t;
+  b.onclick=()=>{i=n;render();toggleMenu();};
+  ml.appendChild(b);
+});
+
+render();
+</script>
+</body>
+</html>
