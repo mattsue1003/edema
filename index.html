@@ -27,7 +27,7 @@ body{
   font-family:'Noto Sans TC',"PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
   background:var(--ink);
   color:var(--ink);
-  overflow:hidden;position:fixed;width:100%;
+  overflow:hidden;width:100%;
   -webkit-font-smoothing:antialiased;
 }
 h1,h2,.huge-num,.sld-text b,.hotline .num,.seal{
@@ -42,7 +42,7 @@ h1,h2,.huge-num,.sld-text b,.hotline .num,.seal{
   display:none;flex-direction:column;justify-content:flex-start;
   padding:clamp(20px,4.5vw,56px);
   padding-bottom:calc(100px + env(safe-area-inset-bottom,0px));
-  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   background:
     radial-gradient(circle at 85% 8%, rgba(47,127,176,.10), transparent 42%),
     radial-gradient(circle at 8% 95%, rgba(242,176,51,.08), transparent 38%),
@@ -50,7 +50,6 @@ h1,h2,.huge-num,.sld-text b,.hotline .num,.seal{
   animation:fade .45s ease;
 }
 .slide.active{display:flex;}
-.slide::before,.slide::after{content:"";flex:1 0 auto;min-height:0;}
 .wrap{width:100%;max-width:1080px;margin-left:auto;margin-right:auto;}
 @keyframes fade{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
 
@@ -82,23 +81,23 @@ h2{font-size:clamp(30px,6.5vw,56px);line-height:1.18;margin-bottom:18px;letter-s
 .nav{
   position:fixed;bottom:0;left:0;right:0;z-index:60;
   display:flex;align-items:center;justify-content:space-between;
-  padding:10px clamp(14px,3vw,28px);
-  padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  padding:8px clamp(10px,2.5vw,18px);
+  padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));
   background:var(--ink);
   border-top:3px solid rgba(242,176,51,.5);
   color:var(--paper);
 }
 .nav button{
-  font-family:inherit;font-weight:900;font-size:clamp(15px,2.6vw,18px);
-  border:3px solid #0d161d;border-radius:12px;padding:10px 20px;cursor:pointer;
+  font-family:inherit;font-weight:900;font-size:clamp(13px,3vw,16px);white-space:nowrap;
+  border:2.5px solid #0d161d;border-radius:11px;padding:9px 14px;cursor:pointer;
   background:var(--gold);color:var(--ink);
   box-shadow:3px 4px 0 #0d161d;
   transition:transform .12s,box-shadow .12s,opacity .2s;
 }
 .nav button:active{transform:translate(2px,3px);box-shadow:1px 1px 0 #0d161d;}
 .nav button:disabled{opacity:.3;cursor:default;}
-.nav .counter{font-size:clamp(14px,2.4vw,17px);font-weight:700;opacity:.85;letter-spacing:.08em;font-variant-numeric:tabular-nums;}
-.menu-btn{background:transparent !important;border:none !important;box-shadow:none !important;color:var(--gold) !important;padding:8px 12px !important;font-size:24px !important;}
+.nav .counter{font-size:clamp(12px,2.4vw,15px);font-weight:700;opacity:.85;letter-spacing:.04em;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.menu-btn{background:transparent !important;border:none !important;box-shadow:none !important;color:var(--gold) !important;padding:6px 8px !important;font-size:22px !important;}
 .menu-btn:active{transform:scale(.9) !important;}
 
 /* ============ 卡片：公告貼紙 ============ */
@@ -910,12 +909,52 @@ button:focus-visible,.opt:focus-visible,.clue:focus-visible,a:focus-visible,.mat
         </p>
       </div>
       <div class="card" style="margin-top:12px;background:rgba(242,176,51,.1);border-left:8px solid var(--gold);">
-        <div style="font-weight:900;color:#9a6b12;font-size:clamp(16px,3vw,21px);margin-bottom:4px;">🔬 實證怎麼說</div>
+        <div style="font-weight:900;color:#9a6b12;font-size:clamp(16px,3vw,21px);margin-bottom:4px;">🔬 有實證嗎？</div>
         <p style="font-size:clamp(15px,2.9vw,20px);font-weight:600;line-height:1.6;">
-          針灸／艾灸用於淋巴水腫，有一些隨機試驗和統合分析顯示「<b>可能</b>」減輕腫脹，但多數研究品質偏低，還需更嚴謹證據。可當<b>輔助</b>，不能取代抬腿、彈性襪與「治療病因」。
+          <b>有，但屬「初步、有限」的證據。</b>針灸／艾灸用於淋巴水腫，有一些隨機試驗與統合分析顯示「可能」減輕腫脹，但多數研究品質偏低，仍需更嚴謹研究。可當<b>輔助</b>，不能取代抬腿、彈性襪與治療病因。
         </p>
       </div>
       <p class="note">⚠️「按完秒瘦一圈」多半是暫時水分位移，不是真的變瘦。皮膚發炎、有傷口、血栓、嚴重心腎病者請勿自行按壓，先諮詢中西醫。</p>
+    </div>
+  </section>
+
+  <!-- (新) 穴道：怎麼取、怎麼按 -->
+  <section class="slide">
+    <div class="wrap">
+      <span class="pill-tag" style="background:#7a9a3a;">🌿 消水腫穴道</span>
+      <h2>穴道怎麼取、<br>怎麼按？</h2>
+      <p class="lead" style="margin-bottom:12px;">點下面穴名，圖上會標出位置。三個穴都在小腿，在家就能按 👇</p>
+      <div class="card rub-stage">
+        <svg viewBox="0 0 300 300" class="rub-svg" role="img" aria-label="消水腫穴道位置圖：陰陵泉、足三里、三陰交">
+          <text x="60" y="46" text-anchor="middle" font-size="15" fill="#74808b" font-weight="700">內側</text>
+          <text x="240" y="46" text-anchor="middle" font-size="15" fill="#74808b" font-weight="700">外側</text>
+          <rect x="104" y="26" width="92" height="74" rx="34" fill="#eab78f" stroke="#c98c63" stroke-width="3"/>
+          <rect x="116" y="90" width="68" height="124" rx="30" fill="#eab78f" stroke="#c98c63" stroke-width="3"/>
+          <rect x="128" y="208" width="44" height="30" rx="16" fill="#eab78f" stroke="#c98c63" stroke-width="3"/>
+          <ellipse cx="150" cy="258" rx="42" ry="22" fill="#eab78f" stroke="#c98c63" stroke-width="3"/>
+          <g class="zone" id="a1"><circle cx="125" cy="116" r="15"/><text x="125" y="122" text-anchor="middle" font-size="18">1</text></g>
+          <g class="zone" id="a2"><circle cx="177" cy="122" r="15"/><text x="177" y="128" text-anchor="middle" font-size="18">2</text></g>
+          <g class="zone" id="a3"><circle cx="131" cy="198" r="15"/><text x="131" y="204" text-anchor="middle" font-size="18">3</text></g>
+        </svg>
+        <div style="font-weight:900;color:#5c7528;font-size:clamp(14px,2.7vw,18px);text-align:center;">點穴名看位置 👇</div>
+      </div>
+      <div class="rub-steps" id="acu-legend">
+        <button class="rub-step" onclick="acuStep(this,1)"><span class="num">1</span>陰陵泉（消水腫主穴）：膝蓋內側下方，沿脛骨邊往上滑到凹陷處</button>
+        <button class="rub-step" onclick="acuStep(this,2)"><span class="num">2</span>足三里：膝蓋骨下緣約四指寬、脛骨外側一指寬</button>
+        <button class="rub-step" onclick="acuStep(this,3)"><span class="num">3</span>三陰交（孕婦勿按）：內踝骨往上四指寬、脛骨後緣凹陷</button>
+      </div>
+      <div class="card" style="margin-top:12px;border-left:8px solid #7a9a3a;">
+        <div style="font-weight:900;color:#5c7528;font-size:clamp(16px,3vw,21px);margin-bottom:4px;">👍 怎麼按</div>
+        <p style="font-size:clamp(15px,2.9vw,20px);font-weight:600;line-height:1.6;">
+          用<b>拇指指腹</b>按壓，按到「<b>痠脹但不痛</b>」即可。每個穴 <b>2～3 分鐘</b>（或按 20 秒、休 10 秒），吐氣時放鬆，<b>兩腿都做</b>，早晚各一次。先熱敷或泡腳會更好按。
+        </p>
+      </div>
+      <div class="card" style="margin-top:12px;background:rgba(47,127,176,.08);border-left:8px solid var(--sky);">
+        <p style="font-size:clamp(15px,2.9vw,20px);font-weight:600;line-height:1.6;">
+          ➕ <b>水分穴</b>：肚臍正上方約一指寬，是古籍記載的「去水腫」穴，可輕揉幫助代謝。
+        </p>
+      </div>
+      <p class="note">⚠️ 穴道按摩有初步實證、屬輔助。<b style="color:var(--alert);">孕婦避免按三陰交</b>；皮膚發炎、傷口、疑似血栓、嚴重心腎病者請勿自行按壓，先就醫。不能取代抬腿、彈性襪與治療病因。</p>
     </div>
   </section>
 
@@ -1029,7 +1068,7 @@ button:focus-visible,.opt:focus-visible,.clue:focus-visible,a:focus-visible,.mat
 <nav class="nav">
   <button class="menu-btn" onclick="toggleMenu()">☰</button>
   <span class="counter"><span id="cur">1</span> / <span id="total">18</span></span>
-  <div style="display:flex;gap:10px;">
+  <div style="display:flex;gap:8px;">
     <button id="prev" onclick="go(-1)">上一頁</button>
     <button id="next" onclick="go(1)">下一頁 ›</button>
   </div>
@@ -1037,7 +1076,7 @@ button:focus-visible,.opt:focus-visible,.clue:focus-visible,a:focus-visible,.mat
 
 <script>
 const slides=[...document.querySelectorAll('.slide')];
-const titles=['封面','水腫是什麼','原因配對','水腫的影響','迷思大挑戰','冷知識:第二顆心臟','體驗:壓痕測試','實證消腫運動','有氧·肌力·伸展','判斷:哪種要就醫','大家來找碴','冷知識:重力與太空人','口訣:動抬穿控','體驗:踝幫浦運動','按摩示意圖','中醫穴道實證','擺位:選對姿勢','綜合配對:該怎麼辦','消除行動','警訊:快看醫生','結尾複習'];
+const titles=['封面','水腫是什麼','原因配對','水腫的影響','迷思大挑戰','冷知識:第二顆心臟','體驗:壓痕測試','實證消腫運動','有氧·肌力·伸展','判斷:哪種要就醫','大家來找碴','冷知識:重力與太空人','口訣:動抬穿控','體驗:踝幫浦運動','按摩示意圖','中醫穴道實證','穴道:怎麼取怎麼按','擺位:選對姿勢','綜合配對:該怎麼辦','消除行動','警訊:快看醫生','結尾複習'];
 let i=0;
 const total=slides.length;
 document.getElementById('total').textContent=total;
@@ -1208,9 +1247,14 @@ function pump(){
 
 // 按摩示意圖：點步驟在圖上標位置
 function rubStep(btn,n){
-  document.querySelectorAll('.rub-step').forEach(b=>b.classList.remove('active'));
+  btn.closest('.rub-steps').querySelectorAll('.rub-step').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  for(let k=1;k<=4;k++){document.getElementById('z'+k).classList.toggle('hi',k===n);}
+  for(let k=1;k<=4;k++){var el=document.getElementById('z'+k);if(el)el.classList.toggle('hi',k===n);}
+}
+function acuStep(btn,n){
+  document.getElementById('acu-legend').querySelectorAll('.rub-step').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  for(let k=1;k<=3;k++){var el=document.getElementById('a'+k);if(el)el.classList.toggle('hi',k===n);}
 }
 
 // 目錄
